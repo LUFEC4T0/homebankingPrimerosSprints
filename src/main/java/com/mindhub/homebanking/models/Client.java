@@ -15,10 +15,12 @@ public class Client {
 
     private String email;
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<ClientLoan> clientLoans = new ArrayList<>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
 //   @JsonManagedReference
-    private List<Account> accounts= new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
     public Client() { }
 
 
@@ -64,6 +66,14 @@ public class Client {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+
+    public void setClientLoans(List<ClientLoan> clientLoans) {
+        this.clientLoans = clientLoans;
     }
 
     public void addAccount (Account account){
