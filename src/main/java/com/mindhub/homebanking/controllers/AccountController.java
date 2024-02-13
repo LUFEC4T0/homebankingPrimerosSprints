@@ -21,7 +21,7 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<AccountsDTO>> getAllAccounts(){
         List<Account> accounts= accountRepository.findAll();
         return new ResponseEntity<>(accounts.stream().map(AccountsDTO::new).collect(java.util.stream.Collectors.toList()), HttpStatus.OK);

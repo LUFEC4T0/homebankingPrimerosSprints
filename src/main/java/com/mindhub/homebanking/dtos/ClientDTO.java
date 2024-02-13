@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -17,6 +18,8 @@ public class ClientDTO {
     private String email;
     private List<AccountsDTO> accounts;
     private List<ClientLoanDTO> loans;
+
+    private Set<CardDTO> cards;
 
     public ClientDTO() {
     }
@@ -30,6 +33,11 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.accounts=accountsDTO(client.getAccounts());
         this.loans = clientLoanDTO(client.getClientLoans());
+        this.cards = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toSet());
+    }
+
+    public Set<CardDTO> getCards() {
+        return cards;
     }
 
     private List<ClientLoanDTO> clientLoanDTO(List<ClientLoan> clientLoans) {
@@ -39,6 +47,7 @@ public class ClientDTO {
     private List<AccountsDTO>accountsDTO(List<Account>accounts){
         return accounts.stream().map(AccountsDTO::new).collect(Collectors.toList());
     }
+
 
     public long getId() {
         return id;

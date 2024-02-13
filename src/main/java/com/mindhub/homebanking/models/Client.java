@@ -3,7 +3,9 @@ package com.mindhub.homebanking.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -21,6 +23,10 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
 //   @JsonManagedReference
     private List<Account> accounts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+//   @JsonManagedReference
+    private Set<Card> cards = new HashSet<>();
     public Client() { }
 
 
@@ -31,6 +37,13 @@ public class Client {
         this.email = email;
     }
 
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
 
     public long getId() {
         return id;
@@ -77,11 +90,12 @@ public class Client {
     }
 
     public void addAccount (Account account){
-        if ((accounts == null)){
-            accounts = new ArrayList<>();
-        }
         account.setClient(this);
         accounts.add(account);
+    }
+    public void addCard (Card card){
+        card.setClient(this);
+        cards.add(card);
     }
 
 
