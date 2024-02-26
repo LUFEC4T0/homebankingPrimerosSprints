@@ -17,6 +17,8 @@ public class Client {
 
     private String email;
 
+    private String password;
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<ClientLoan> clientLoans = new ArrayList<>();
 
@@ -31,10 +33,19 @@ public class Client {
 
 
 
-    public Client(String firstName, String lastName, String email) {
+    public Client(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Card> getCards() {
